@@ -28,7 +28,7 @@ namespace FileSystem.DAL
     /// 如果想使用我，请叫我“爸爸”（继承我），我将帮助你拿到数据库的数据
     /// </summary>
     /// <typeparam name="T">你要返回的Entity类型（实体类）</typeparam>
-    public abstract class BaseService<T> where T : BaseEntity
+    public abstract class BaseService<T> where T : BaseEntity,new()
     {
         /// <summary>
         /// 数据库连接字符串，通过app.config文件修改成你的，这样写的好处在于可以在不修改程序代码的前提下换数据库
@@ -87,7 +87,7 @@ namespace FileSystem.DAL
         /// <returns></returns>
         public T FindSingle(string condition, params DbParameter[] paramList)
         {
-            T local = default(T);
+            T local = new T();
             List<T> list = this.Find(condition, paramList);
             if (list.Count > 0)
             {
